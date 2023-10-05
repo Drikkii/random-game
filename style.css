@@ -5,9 +5,166 @@
   border: 0;
 }
 body {
+  background-color: #aec670;
   height: auto;
 }
 
+/* header */
+.header {
+  margin: 0 auto;
+  background-color: blueviolet;
+  height: 3rem;
+  max-width: 1440px;
+}
+/* main */
+.express-game {
+  margin: 0 auto;
+  height: 100%;
+  max-width: 90rem;
+  display: flex;
+}
+
+.tree {
+  z-index: 10;
+  position: absolute;
+  height: 33%;
+}
+.tree1-left {
+  transform: translate(240%);
+  width: 33%;
+}
+.tree2-left {
+  transform: translate(240%, 100%);
+  width: 33%;
+  z-index: 10;
+}
+.tree3-left {
+  transform: translate(240%, 200%);
+  width: 33%;
+  z-index: 12;
+}
+.tree1-right {
+  transform: translate(-20%);
+  width: 33%;
+}
+.tree2-right {
+  transform: translate(-25%, 100%);
+  width: 33%;
+  z-index: 10;
+}
+.tree3-right {
+  transform: translate(-25%, 200%);
+  width: 33%;
+  z-index: 12;
+}
+/* left side */
+.left {
+  display: flex;
+  position: relative;
+  background-color: #aec670;
+  width: 30%;
+  height: auto;
+}
+.street-tree {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.score {
+  position: relative;
+  padding-left: 2%;
+  justify-content: space-between;
+  display: flex;
+  background-color: orange;
+  width: 75%;
+  height: 3rem;
+  margin-top: 8%;
+  margin-left: 2%;
+}
+.score-text {
+  font-size: 3rem;
+  width: 40%;
+}
+.score-game {
+  text-align: center;
+  font-size: 3rem;
+  width: 40%;
+}
+.down-button {
+  text-align: center;
+  transition: 0.5s;
+  cursor: pointer;
+  font-size: 3rem;
+
+  width: 20%;
+}
+.down-button:hover {
+  transform: scale(130%);
+}
+.statistic {
+  background-color: aquamarine;
+  left: 0;
+  top: 100%;
+  position: absolute;
+  text-align: center;
+  width: 100%;
+}
+.leadboard {
+  text-align: center;
+  font-size: 2rem;
+  width: 100%;
+}
+.table {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* middle road */
+.road {
+  background-image: url(../random-game/img/road.jpg);
+  background-size: 100%;
+  position: relative;
+  z-index: 8;
+  width: 40%;
+  height: 100vh;
+}
+.road-back {
+  width: 100%;
+  height: 100%;
+}
+.car {
+  z-index: 9;
+  left: 45%;
+  bottom: 0;
+  width: 15%;
+  height: 25%;
+  position: absolute;
+}
+
+/* right side */
+.right {
+  position: relative;
+  background-color: #aec670;
+  width: 30%;
+  height: auto;
+}
+.play {
+  transition: 0.5s;
+  cursor: pointer;
+  background-color: #aec670;
+  margin-top: 30%;
+  margin-left: 40%;
+  height: 20%;
+  width: 40%;
+}
+.play:hover {
+  transform: scale(150%);
+}
+.play-pause {
+  height: 100%;
+  width: 100%;
+}
 /* Footer */
 
 .footer {
@@ -48,4 +205,66 @@ body {
 .Ficon {
   width: 3rem;
   height: 2rem;
+}
+
+/* media */
+@media screen and (max-width: 1440px) {
+  .table {
+    font-size: 1.8rem;
+  }
+}
+@media screen and (max-width: 1180px) {
+  .table {
+    font-size: 1rem;
+  }
+  .score-text,
+  .leadboard {
+    font-size: 2rem;
+  }
+  .score-game {
+    font-size: 2rem;
+  }
+  .down-button {
+    font-size: 2rem;
+  }
+  .score {
+    height: 2rem;
+  }
+}
+@media screen and (max-width: 850px) {
+  .table {
+    font-size: 0.7rem;
+  }
+  .score-text,
+  .leadboard {
+    font-size: 1rem;
+  }
+  .score-game {
+    font-size: 1rem;
+  }
+  .down-button {
+    font-size: 1rem;
+  }
+  .score {
+    height: 1rem;
+  }
+}
+@media screen and (max-width: 450px) {
+  .table {
+    font-size: 0.2rem;
+  }
+  .score-text,
+  .leadboard,
+  .table {
+    font-size: 0.5rem;
+  }
+  .score-game {
+    font-size: 0.5rem;
+  }
+  .down-button {
+    font-size: 0.5rem;
+  }
+  .score {
+    height: 0.5rem;
+  }
 }
