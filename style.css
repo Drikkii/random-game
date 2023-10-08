@@ -151,12 +151,26 @@ body {
   height: 100%;
 }
 .car {
-  z-index: 9;
+  z-index: 12;
   left: 45%;
   transform: translateY(70vh);
   width: 15%;
   height: 25%;
   position: absolute;
+}
+.cash {
+  width: 15%;
+  height: 15%;
+  z-index: 10;
+  position: absolute;
+  transform: translate(40vh);
+}
+.danger {
+  width: 25%;
+  height: 20%;
+  z-index: 10;
+  position: absolute;
+  transform: translate(60vh, -100vh);
 }
 
 /* right side */

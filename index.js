@@ -7,9 +7,16 @@ function game() {
   const trees = document.querySelectorAll(".tree");
   const road = document.querySelector(".road-map");
   const road2 = document.querySelector(".road-map2");
+  const roadbox = document.querySelector(".road");
+  const cash = document.querySelector(".cash");
+  const danger = document.querySelector(".danger");
 
   // car animation (keydown keyup keypress)
 
+  const carWidth = car.clientWidth;
+  const carHeight = car.clientHeight;
+  const roadHeightBox = roadbox.clientHeight;
+  const roadWidthBox = roadbox.clientWidth;
   const carCordinat = getYCordinates(car);
   const carMove = { top: null, bottom: null, left: null, right: null };
 
@@ -37,7 +44,6 @@ function game() {
     ) {
       carMove.right = requestAnimationFrame(carMoveRight);
     }
-    console.log(event);
   });
   document.addEventListener("keyup", (event) => {
     const code = event.code;
@@ -58,24 +64,36 @@ function game() {
 
   function carMoveUp() {
     const newY = carCordinat.y - 3;
+    if (newY < 0) {
+      return;
+    }
     carCordinat.y = newY;
     carMovement(carCordinat.x, newY);
     carMove.top = requestAnimationFrame(carMoveUp);
   }
   function carMoveDown() {
     const newY = carCordinat.y + 3;
+    if (newY + carHeight > roadHeightBox) {
+      return;
+    }
     carCordinat.y = newY;
     carMovement(carCordinat.x, newY);
     carMove.bottom = requestAnimationFrame(carMoveDown);
   }
   function carMoveLeft() {
     const newX = carCordinat.x - 3;
+    if (newX - carWidth < (roadWidthBox * -1) / 1.65) {
+      return;
+    }
     carCordinat.x = newX;
     carMovement(newX, carCordinat.y);
     carMove.left = requestAnimationFrame(carMoveLeft);
   }
   function carMoveRight() {
     const newX = carCordinat.x + 3;
+    if (newX + carWidth > roadWidthBox / 1.8) {
+      return;
+    }
     carCordinat.x = newX;
     carMovement(newX, carCordinat.y);
     carMove.right = requestAnimationFrame(carMoveRight);
@@ -137,16 +155,6 @@ function game() {
     road2.style.transform = `translateY(${roadbcdCor2.y}px)`;
   }
 
-  //     let newCordinatey = roadbcdCor.y + speed;
-  //     if (newCordinatey > window.innerHeight) {
-  //       newCordinatey = -road.height;
-  //     }
-
-  //     roadbcdCor.y = newCordinatey;
-  //     console.log(roadbcdCor.y);
-  //     road.style.transform = `translateY(${roadbcdCor.y}px)`;
-  //   }
-
   function getYCordinates(element) {
     const matrix = window.getComputedStyle(element).transform;
     const array = matrix.split(",");
@@ -157,6 +165,59 @@ function game() {
     return { y: cordinateY, x: cordinateX };
   }
 
+  // coint / yama animation and generate
+  const coinCord = getYCordinates(cash);
+
+  const coinWight = cash.clientWidth;
+
+  function coinAnimation() {
+    let newCordinateyY = coinCord.y + speed;
+    let newCordinateyX = coinCord.x;
+    if (newCordinateyY > window.innerHeight) {
+      newCordinateyY = -1000;
+      const direction = parseInt(Math.random() * 2);
+      const randomXCord = parseInt(
+        Math.random() * (roadWidthBox - coinWight) + 1
+      );
+      if (direction === 0) {
+        newCordinateyX = randomXCord;
+      } else if (direction === 1) {
+        newCordinateyX = randomXCord;
+      }
+    }
+
+    coinCord.y = newCordinateyY;
+    coinCord.x = newCordinateyX;
+    cash.style.transform = `translate(${newCordinateyX}px, ${newCordinateyY}px)`;
+  }
+  const yamaCord = getYCordinates(danger);
+  console.log(yamaCord);
+
+  const yamaWight = danger.clientWidth;
+
+  function yamaAnimation() {
+    let newCordinateyY = yamaCord.y + speed;
+    let newCordinateyX = yamaCord.x;
+    if (newCordinateyY > window.innerHeight) {
+      newCordinateyY = -700;
+      const direction = parseInt(Math.random() * 2);
+      const randomXCord = parseInt(
+        Math.random() * (roadWidthBox - yamaWight) + 1
+      );
+      if (direction === 0) {
+        newCordinateyX = randomXCord;
+      } else if (direction === 1) {
+        newCordinateyX = randomXCord;
+      }
+    }
+
+    yamaCord.y = newCordinateyY;
+    yamaCord.x = newCordinateyX;
+    danger.style.transform = `translate(${newCordinateyX}px, ${newCordinateyY}px)`;
+  }
+
+  // Пример использования:
+
   // start-game
 
   animationId = requestAnimationFrame(startGame);
@@ -165,6 +226,8 @@ function game() {
     animationTree();
     roadAnimation();
     roadAnimation2();
+    coinAnimation();
+    yamaAnimation();
 
     animationId = requestAnimationFrame(startGame);
   }
