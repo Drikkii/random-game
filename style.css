@@ -353,7 +353,7 @@ body {
   height: 2rem;
 }
 
-/* media */
+/* media*/
 @media screen and (max-width: 3500px) {
   .footer {
     top: 90%;
