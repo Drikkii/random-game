@@ -23,6 +23,7 @@ body {
 
 /* star-game */
 .start-menu {
+  border-radius: 2rem;
   padding-top: 5%;
   justify-content: space-around;
   display: flex;
