@@ -68,6 +68,15 @@ body {
   width: 35%;
 }
 
+.you-nick {
+  display: none;
+  font-size: 1.2rem;
+  color: red;
+  position: absolute;
+  top: 4%;
+  left: 10%;
+}
+
 /* finish menu */
 .finish-menu {
   padding-top: 5px;
@@ -100,9 +109,17 @@ body {
   height: 20%;
 }
 
+.back {
+  color: white;
+  background-color: rgba(255, 0, 0, 0.678);
+  width: 30%;
+  border-radius: 1rem;
+  height: 20%;
+}
+
 /* back */
 .backdoor {
-  display: block;
+  display: none;
   transition: 0.5s;
   align-items: center;
   justify-content: center;
@@ -295,9 +312,11 @@ body {
 /* Footer */
 
 .footer {
+  z-index: 100;
   margin-top: 2rem;
   background-color: rgba(0, 0, 0, 0.308);
-  position: relative;
+  position: absolute;
+  top: 80%;
   gap: 30px;
   justify-content: center;
   display: flex;
@@ -335,6 +354,11 @@ body {
 }
 
 /* media */
+@media screen and (max-width: 3500px) {
+  .footer {
+    top: 90%;
+  }
+}
 @media screen and (max-width: 1440px) {
   .table {
     font-size: 1.8rem;
@@ -343,6 +367,12 @@ body {
   .nickname,
   .start {
     font-size: 2rem;
+  }
+  .you-nick {
+    font-size: 1.2rem;
+  }
+  .footer {
+    top: 80%;
   }
 }
 @media screen and (max-width: 1180px) {
@@ -367,6 +397,12 @@ body {
   .start {
     font-size: 1.5rem;
   }
+  .you-nick {
+    font-size: 0.9rem;
+  }
+  .footer {
+    top: 78%;
+  }
 }
 @media screen and (max-width: 850px) {
   .table {
@@ -389,6 +425,24 @@ body {
   .nickname,
   .start {
     font-size: 1rem;
+  }
+  .you-nick {
+    font-size: 0.6rem;
+  }
+  .footer {
+    top: 75%;
+    height: 5rem;
+  }
+  .github,
+  .rsschool,
+  .years {
+    font-size: 1rem;
+    width: 3rem;
+    height: 2rem;
+  }
+  .Ficon {
+    width: 1rem;
+    height: 1rem;
   }
 }
 @media screen and (max-width: 450px) {
@@ -413,5 +467,23 @@ body {
   .nickname,
   .start {
     font-size: 0.7rem;
+  }
+  .you-nick {
+    font-size: 0.4rem;
+  }
+  .footer {
+    top: 70%;
+  }
+  .github,
+  .rsschool,
+  .years {
+    padding-top: 0.2rem;
+    font-size: 0.6rem;
+    width: 1.5rem;
+    height: 1rem;
+  }
+  .Ficon {
+    width: 0.7rem;
+    height: 0.7rem;
   }
 }
