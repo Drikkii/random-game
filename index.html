@@ -17,6 +17,25 @@
   <body>
     <!-- <header class="header"></header> -->
     <main class="express-game">
+      <section class="start-menu">
+        <input class="nickname" type="text" placeholder="Nickname" />
+        <img class="prev" src="img/car.png" alt="car" />
+        <img class="prev" src="icon/yama.png" alt="yama" />
+        <img class="prev" src="icon/business.svg" alt="cash" />
+        <button class="start">Start</button>
+        <p class="textgame">
+          Collect as many coins as possible, try to avoid dangers on the road.
+          Good luck!
+        </p>
+      </section>
+      <section class="finish-menu">
+        <img class="finish-img" src="icon/finish.png" alt="finish" />
+        <p class="finish-score">
+          Finale score : <span class="score-finish">0</span>
+        </p>
+        <button class="new-start">Start</button>
+      </section>
+      <div class="backdoor"></div>
       <section class="left">
         <div class="street-tree">
           <img class="tree tree1-left" src="img/tree1.png" alt="" />
@@ -24,7 +43,7 @@
           <img class="tree tree3-left" src="img/tree3.png" alt="" />
           <div class="score">
             <div class="score-text">Score:</div>
-            <div class="score-game">500</div>
+            <div class="score-game">0</div>
             <div class="down-button">&#9660;</div>
             <div class="statistic">
               <div class="leadboard">Last 10 games</div>

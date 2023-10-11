@@ -1,4 +1,11 @@
-game();
+const nickname = document.querySelector(".nickname");
+const start = document.querySelector(".start");
+
+start.addEventListener("click", game());
+
+// function PlayGame() {
+//   game();
+// }
 
 function game() {
   let animationId = null;
@@ -10,6 +17,11 @@ function game() {
   const roadbox = document.querySelector(".road");
   const cash = document.querySelector(".cash");
   const danger = document.querySelector(".danger");
+  const score = document.querySelector(".score-game");
+  const backdoor = document.querySelector(".backdoor");
+  const finishMenu = document.querySelector(".finish-menu");
+  const finishScore = document.querySelector(".score-finish");
+  const newStart = document.querySelector(".new-start");
 
   // car animation (keydown keyup keypress)
 
@@ -82,7 +94,7 @@ function game() {
   }
   function carMoveLeft() {
     const newX = carCordinat.x - 3;
-    if (newX - carWidth < (roadWidthBox * -1) / 1.65) {
+    if (newX - carWidth < (roadWidthBox * -1) / 6) {
       return;
     }
     carCordinat.x = newX;
@@ -91,7 +103,7 @@ function game() {
   }
   function carMoveRight() {
     const newX = carCordinat.x + 3;
-    if (newX + carWidth > roadWidthBox / 1.8) {
+    if (newX + carWidth > roadWidthBox) {
       return;
     }
     carCordinat.x = newX;
@@ -105,14 +117,14 @@ function game() {
 
   // tree / road animation
 
-  const speed = 5;
+  let speed = 1;
 
   const CordsAllTrees = [];
 
   for (let i = 0; i < trees.length; i++) {
     const tree = trees[i];
     const cordS = getYCordinates(tree);
-    CordsAllTrees.push(cordS); //добавляем в массив
+    CordsAllTrees.push(cordS);
   }
 
   function animationTree() {
@@ -131,8 +143,8 @@ function game() {
   }
   const roadHeight = road.clientHeight;
   const roadHeight2 = road2.clientHeight;
-  let roadbcdCor = { y: 0 }; // Изначально позиция дороги вверху
-  let roadbcdCor2 = { y: -roadHeight2 }; // Изначально позиция дороги вверху
+  let roadbcdCor = { y: 0 };
+  let roadbcdCor2 = { y: -roadHeight2 };
 
   function roadAnimation() {
     let newCoordinateY = roadbcdCor.y + speed;
@@ -147,7 +159,7 @@ function game() {
     let newCoordinateY2 = roadbcdCor2.y + speed;
 
     if (newCoordinateY2 > window.innerHeight) {
-      roadbcdCor2.y = -roadHeight2; // Сразу переместить дорогу наверх после достижения нижней границы
+      roadbcdCor2.y = -roadHeight2;
     } else {
       roadbcdCor2.y = newCoordinateY2;
     }
@@ -179,6 +191,8 @@ function game() {
       const randomXCord = parseInt(
         Math.random() * (roadWidthBox - coinWight) + 1
       );
+      cash.style.display = "initial";
+      cash.visible = true;
       if (direction === 0) {
         newCordinateyX = randomXCord;
       } else if (direction === 1) {
@@ -191,9 +205,9 @@ function game() {
     cash.style.transform = `translate(${newCordinateyX}px, ${newCordinateyY}px)`;
   }
   const yamaCord = getYCordinates(danger);
-  console.log(yamaCord);
 
   const yamaWight = danger.clientWidth;
+  const yamaHeight = danger.clientHeight;
 
   function yamaAnimation() {
     let newCordinateyY = yamaCord.y + speed;
@@ -216,18 +230,114 @@ function game() {
     danger.style.transform = `translate(${newCordinateyX}px, ${newCordinateyY}px)`;
   }
 
-  // Пример использования:
+  let gameScore = 0;
+  //  colizzion Cash
+  function cashCollision() {
+    const carYTop = carCordinat.y;
+    const carYBottom = carCordinat.y + carHeight;
+
+    const carXLeft = carCordinat.x;
+    const carXRight = carCordinat.x;
+
+    const cashYTop = coinCord.y;
+    const cashYBottom = coinCord.y + coinWight;
+
+    const cashXLeft = coinCord.x - coinWight;
+    const cashXRight = coinCord.x + coinWight;
+
+    //  Прописываем коллизию для Y
+
+    if (carYTop > cashYBottom && cash.visible === true) {
+      return false;
+    }
+
+    if (carYBottom < cashYTop && cash.visible === true) {
+      return false;
+    }
+
+    // Прописываем коллизию для X
+    if (carXLeft > cashXRight && cash.visible === true) {
+      return false;
+    }
+    if (carXRight < cashXLeft && cash.visible === true) {
+      return false;
+    }
+    return true;
+  }
+  //  colizzion yama
+  function yamaCollision() {
+    const carYTop = carCordinat.y;
+    const carYBottom = carCordinat.y + carHeight;
+
+    const carXLeft = carCordinat.x;
+    const carXRight = carCordinat.x;
+
+    const dangerYTop = yamaCord.y;
+    const dangerYBottom = yamaCord.y + yamaHeight;
+
+    const dangerXLeft = yamaCord.x - yamaWight / 2;
+    const dangerXRight = yamaCord.x + yamaWight;
+    //  Прописываем коллизию для Y
+
+    if (carYTop > dangerYBottom) {
+      return false;
+    }
+
+    if (carYBottom < dangerYTop) {
+      return false;
+    }
+
+    // Прописываем коллизию для X
+    if (carXLeft > dangerXRight) {
+      return false;
+    }
+    if (carXRight < dangerXLeft) {
+      return false;
+    }
+    return true;
+  }
 
   // start-game
 
   animationId = requestAnimationFrame(startGame);
 
   function startGame() {
+    if (yamaCollision()) {
+      return finishGame();
+    }
     animationTree();
     roadAnimation();
     roadAnimation2();
     coinAnimation();
     yamaAnimation();
+    if (cash.visible === true && cashCollision()) {
+      gameScore++;
+      score.innerText = gameScore;
+      cash.style.display = "none";
+      cash.visible = false;
+    }
+
+    if (gameScore > 2) {
+      speed = 2;
+    }
+    if (gameScore > 8) {
+      speed = 3;
+    }
+    if (gameScore > 12) {
+      speed = 4;
+    }
+    if (gameScore > 16) {
+      speed = 5;
+    }
+    if (gameScore > 25) {
+      speed = 6;
+    }
+    if (gameScore > 33) {
+      speed = 7;
+    }
+    if (gameScore > 40) {
+      speed = 8;
+    }
 
     animationId = requestAnimationFrame(startGame);
   }
@@ -249,5 +359,20 @@ function game() {
       animationId = requestAnimationFrame(startGame);
       playPauseImage.src = "icon/pause.svg";
     }
+  });
+  function finishGame() {
+    cancelAnimationFrame(animationId);
+    cancelAnimationFrame(carMove.top);
+    cancelAnimationFrame(carMove.bottom);
+    cancelAnimationFrame(carMove.left);
+    cancelAnimationFrame(carMove.right);
+    backdoor.style.display = "initial";
+    finishMenu.style.display = "initial";
+    playPauseImage.src = "icon/play.svg";
+    finishScore.innerText = gameScore;
+  }
+
+  newStart.addEventListener("click", function () {
+    window.location.reload();
   });
 }
