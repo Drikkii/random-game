@@ -412,7 +412,7 @@ function game() {
     scoreContainer.appendChild(scoreElement);
   }
 
-  // sound
+  // sound func
 
   function playSound() {
     let s = audio;
