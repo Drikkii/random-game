@@ -370,7 +370,6 @@ function game() {
     finishMenu.style.display = "initial";
     playPauseImage.src = "icon/play.svg";
     finishScore.innerText = gameScore;
-    playSound();
 
     let finishScoreS = gameScore;
 
@@ -386,7 +385,7 @@ function game() {
 
     localStorage.setItem("savedScore", JSON.stringify(savedScore));
 
-    stopSound("sound/carSound.mp3");
+    playSound();
   }
 
   newStart.addEventListener("click", function () {
