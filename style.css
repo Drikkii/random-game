@@ -225,10 +225,30 @@ body {
   text-align: center;
   width: 100%;
 }
+
 .leadboard {
+  margin-top: 0.2rem;
   text-align: center;
   font-size: 2rem;
   width: 100%;
+}
+
+.allstatistic {
+  width: 100%;
+  display: flex;
+}
+.nameGamer {
+  text-align: right;
+  margin-left: 0.5rem;
+  font-size: 2rem;
+  width: 60%;
+}
+.scoreGame {
+  margin-top: 0.3rem;
+  text-align: center;
+  margin-left: 0.3rem;
+  font-size: 2rem;
+  width: 90%;
 }
 .table {
   width: 100%;
@@ -404,6 +424,9 @@ body {
   .footer {
     top: 78%;
   }
+  .scoreGame {
+    font-size: 1.5rem;
+  }
 }
 @media screen and (max-width: 850px) {
   .table {
@@ -444,6 +467,9 @@ body {
   .Ficon {
     width: 1rem;
     height: 1rem;
+  }
+  .scoreGame {
+    font-size: 1rem;
   }
 }
 @media screen and (max-width: 450px) {
@@ -486,5 +512,8 @@ body {
   .Ficon {
     width: 0.7rem;
     height: 0.7rem;
+  }
+  .scoreGame {
+    font-size: 0.5rem;
   }
 }

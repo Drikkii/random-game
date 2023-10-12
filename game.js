@@ -1,20 +1,3 @@
-// const nickname = document.querySelector(".nickname");
-// const start = document.querySelector(".start");
-// const startMenu = document.querySelector(".start-menu");
-// const younick = document.querySelector(".you-nick");
-// const form = document.querySelector(".form");
-
-// start.addEventListener("click", function () {
-//   PlayGame();
-// });
-
-// function PlayGame() {
-//   if (nickname.value == "") {
-//     younick.style.display = "initial";
-//   } else {
-//     form.action = "game.html";
-//   }
-// }
 game();
 function game() {
   let animationId = null;
@@ -31,9 +14,11 @@ function game() {
   const finishMenu = document.querySelector(".finish-menu");
   const finishScore = document.querySelector(".score-finish");
   const newStart = document.querySelector(".new-start");
-  const back = document.querySelector(".back");
+  const audio = document.querySelector(".audio");
 
   // car animation (keydown keyup keypress)
+
+  let isPlay = false;
 
   const carWidth = car.clientWidth;
   const carHeight = car.clientHeight;
@@ -127,7 +112,7 @@ function game() {
 
   // tree / road animation
 
-  let speed = 1;
+  let speed = 1.5;
 
   const CordsAllTrees = [];
 
@@ -272,6 +257,7 @@ function game() {
     if (carXRight < cashXLeft && cash.visible === true) {
       return false;
     }
+    playSoundS("sound/cashSound.mp3");
     return true;
   }
   //  colizzion yama
@@ -304,6 +290,7 @@ function game() {
     if (carXRight < dangerXLeft) {
       return false;
     }
+    playSoundS("sound/crash.mp3");
     return true;
   }
 
@@ -315,6 +302,7 @@ function game() {
     if (yamaCollision()) {
       return finishGame();
     }
+
     animationTree();
     roadAnimation();
     roadAnimation2();
@@ -365,9 +353,11 @@ function game() {
       cancelAnimationFrame(carMove.right);
 
       playPauseImage.src = "icon/play.svg";
+      playSound();
     } else {
       animationId = requestAnimationFrame(startGame);
       playPauseImage.src = "icon/pause.svg";
+      playSound();
     }
   });
   function finishGame() {
@@ -380,9 +370,67 @@ function game() {
     finishMenu.style.display = "initial";
     playPauseImage.src = "icon/play.svg";
     finishScore.innerText = gameScore;
+    playSound();
+
+    let finishScoreS = gameScore;
+
+    localStorage.setItem("savedScr", finishScoreS);
+
+    let savedScore = JSON.parse(localStorage.getItem("savedScore")) || [];
+
+    savedScore.unshift(finishScoreS);
+
+    if (savedScore.length > 10) {
+      savedScore.pop();
+    }
+
+    localStorage.setItem("savedScore", JSON.stringify(savedScore));
+
+    stopSound("sound/carSound.mp3");
   }
 
   newStart.addEventListener("click", function () {
     window.location.reload();
   });
+
+  // local
+
+  // Score
+  let savedscores = JSON.parse(localStorage.getItem("savedScore")) || [];
+  let saveNick = localStorage.getItem("savedInput");
+  console.log(saveNick);
+
+  let scoreContainer = document.querySelector(".scoreGame");
+
+  scoreContainer.innerHTML = "";
+
+  for (let i = 0; i < savedscores.length; i++) {
+    let Score = savedscores[i];
+
+    let scoreElement = document.createElement("div");
+    scoreElement.textContent = saveNick + "  " + ":" + "  " + Score;
+
+    scoreContainer.appendChild(scoreElement);
+  }
+
+  // sound
+
+  function playSound() {
+    let s = audio;
+    s.volume = 1;
+
+    if (s.paused) {
+      s.play();
+    } else {
+      s.pause();
+      audioElement.currentTime = 0;
+    }
+  }
+
+  function playSoundS(url) {
+    let audio = new Audio();
+    audio.src = url;
+    audio.play();
+  }
+  playSound();
 }
