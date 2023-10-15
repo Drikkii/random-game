@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Game</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      rel="shortcut icon"
+      href="favicon/favicon-32x32.png"
+      type="image/png"
+    />
+    <link rel="apple-touch-icon" href="favicon/apple-touch-icon.png" />
+    <link rel="shortcut icon" href="favicon/favicon-32x32.png" />
+    <link rel="icon" type="image/ico" href="favicon/favicon.ico" />
+  </head>
+  <body>
+    <main class="express-game">
+      <audio class="audio" src="sound/Soundcar.mp3"></audio>
+      <section class="finish-menu">
+        <img class="finish-img" src="icon/finish.png" alt="finish" />
+        <p class="finish-score">
+          Finale score : <span class="score-finish">0</span>
+        </p>
+        <button class="new-start">Start</button>
+        <a href="index.html"><button class="back">Return</button></a>
+      </section>
+      <div class="backdoor"></div>
+      <section class="left">
+        <div class="street-tree">
+          <img class="tree tree1-left" src="img/tree1.png" alt="" />
+          <img class="tree tree2-left" src="img/tree2.png" alt="" />
+          <img class="tree tree3-left" src="img/tree3.png" alt="" />
+          <div class="score">
+            <div class="score-text">Score:</div>
+            <div class="score-game">0</div>
+            <div class="down-button">&#9660;</div>
+            <div class="statistic">
+              <div class="leadboard">Last 10 games</div>
+              <div class="allstatistic">
+                <div class="scoreGame"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="road">
+        <img class="cash" src="icon/business.svg" alt="road" />
+        <img class="danger" src="icon/yama.png" alt="road" />
+        <img class="road-map2" src="img/road.jpg" alt="road" />
+        <img class="road-map" src="img/road.jpg" alt="road" />
+        <img class="car" src="img/car.png" alt="car" />
+      </section>
+      <section class="right">
+        <img class="tree tree1-right" src="img/tree1.png" alt="" />
+        <img class="tree tree2-right" src="img/tree3.png" alt="" />
+        <img class="tree tree3-right" src="img/tree2.png" alt="" />
+        <button class="play">
+          <img class="play-pause" src="icon/pause.svg" alt="play" />
+        </button>
+      </section>
+    </main>
+  </body>
+  <script src="game.js"></script>
+</html>

@@ -1,1 +1,1 @@
-# random-game
+[# Link](https://drikkii.github.io/random-game/index.html)
